@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Gallery</string>
+    <string name="show_more_options">Show more options</string>
+    <string name="photo">Photo</string>
+    <string name="share">Share</string>
+    <string name="photos">Photos</string>
+    <string name="albums">Albums</string>
+    <string name="edit">Edit</string>
+    <string name="open_with">Open With</string>
+    <string name="set_as">Set As</string>
+    <string name="mute_sound">Mute Sound</string>
+    <string name="un_mute_sound">UnMute Sound</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="use_as">Use as</string>
+    <string name="more">More</string>
+    <plurals name="items">
+        <item quantity="one">%d item</item>
+        <item quantity="other">%d items</item>
+    </plurals>
+</resources>
