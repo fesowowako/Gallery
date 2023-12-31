@@ -20,37 +20,35 @@ class ZoomState() {
 }
 
 fun Modifier.zoomArea(state: ZoomState): Modifier = this.then(
-    pointerInput(Unit) {
-        awaitEachGesture {
-            awaitFirstDown()
-            do {
-                val event = awaitPointerEvent()
-                if (event.changes.size >= 2) {
-                    state.scale *= event.calculateZoom()
-                    state.scale = java.lang.Float.max(state.scale, 1f)
-                    val offset = event.calculatePan()
-                    val w = size.width * (state.scale - 1f) / 2
-                    state.offsetX = (state.offsetX + offset.x).coerceIn(-w, w)
-                    val h = size.height * (state.scale - 1f) / 2
-                    state.offsetY = (state.offsetY + offset.y).coerceIn(-h, h)
-                    event.changes.forEach {
-                        it.consume()
-                    }
-                } else if (event.changes.size == 1) {
-                    val offset = event.calculatePan()
-                    val w = size.width * (state.scale - 1f) / 2
-                    state.offsetX = (state.offsetX + offset.x).coerceIn(-w, w)
-                    val h = size.height * (state.scale - 1f) / 2
-                    state.offsetY = (state.offsetY + offset.y).coerceIn(-h, h)
-                    if (state.offsetX != -w && state.offsetX != w) {
-                        event.changes.forEach {
-                            it.consume()
-                        }
-                    }
-                }
-            } while (event.changes.any { it.pressed })
-        }
-    })
+   pointerInput(Unit) {
+       awaitEachGesture {
+           awaitFirstDown()
+           do {
+               val event = awaitPointerEvent()
+               val w = size.width * (state.scale - 1f) / 2
+               val h = size.height * (state.scale - 1f) / 2
+               if (event.changes.size >= 2) {
+                  state.scale *= event.calculateZoom()
+                  state.scale = java.lang.Float.max(state.scale, 1f)
+                  val offset = event.calculatePan()
+                  state.offsetX = (state.offsetX + offset.x).coerceIn(-w, w)
+                  state.offsetY = (state.offsetY + offset.y).coerceIn(-h, h)
+                  event.changes.forEach {
+                      it.consume()
+                  }
+               } else if (event.changes.size == 1) {
+                  val offset = event.calculatePan()
+                  state.offsetX = (state.offsetX + offset.x).coerceIn(-w, w)
+                  state.offsetY = (state.offsetY + offset.y).coerceIn(-h, h)
+                  if (state.offsetX != -w && state.offsetX != w) {
+                      event.changes.forEach {
+                          it.consume()
+                      }
+                  }
+               }
+           } while (event.changes.any { it.pressed })
+       }
+   })
 
 fun Modifier.zoomImage(state: ZoomState): Modifier = this.then(
     graphicsLayer {
