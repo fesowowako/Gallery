@@ -8,9 +8,13 @@ import app.android.gallery.backend.viewmodel.PhotoViewModel
 
 @Composable
 fun PhotoGridView(
-    onClickItem: (Int) -> Unit,
-    photoViewModel: PhotoViewModel = viewModel(factory = PhotoViewModel.Factory)
+   onClickItem: (Int) -> Unit,
+   photoViewModel: PhotoViewModel = rememberViewModel(factory = PhotoViewModel.Factory)
 ) {
-    val photos by photoViewModel.photos.collectAsState()
-    GroupedPhotoGrid(photos, onClickItem)
+   val photos by photoViewModel.photos.collectAsState()
+   LazyColumn {
+       items(photos, contentType = { it.hashCode() }) { photo ->
+           GroupedPhotoGrid(photo, onClickItem)
+       }
+   }
 }
