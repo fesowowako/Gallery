@@ -42,7 +42,7 @@ import app.android.gallery.util.launchUseAsIntent
 import app.android.gallery.util.shareMedia
 
 @Composable
-private fun MediaViewInfoActions(
+fun MediaViewInfoActions(
     media: Media,
     color: Color = MaterialTheme.colorScheme.onSurfaceVariant
 ) {

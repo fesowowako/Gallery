@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,8 +34,8 @@ fun GroupedPhotoGrid(media: List<Media>, onClickItem: (Int) -> Unit) {
                     modifier = Modifier.padding(horizontal = 8.dp, 16.dp)
                 )
             }
-            itemsIndexed(items) { index, photo ->
-                MediaCard(media = photo, onClickCard = { onClickItem(index) })
+            items(items) { photo ->
+                MediaCard(media = photo, onClickCard = { onClickItem(media.indexOf(photo)) })
             }
         }
 
